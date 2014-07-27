@@ -17,6 +17,21 @@ Articles.register(function(app, auth, database) {
   Articles.routes(app, auth, database);
 
   //We are adding a link to the main menu for all authenticated users
+    Articles.menus.add({
+        'roles': ['authenticated'],
+        'title': '最新',
+        'link': 'all articles'
+    });
+    Articles.menus.add({
+        'roles': ['authenticated'],
+        'title': '热门',
+        'link': 'hot articles'
+    });
+    Articles.menus.add({
+        'roles': ['authenticated'],
+        'title': '发表',
+        'link': 'create article'
+    });
   Articles.menus.add({
     'roles': ['authenticated'],
     'title': 'Articles',

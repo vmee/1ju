@@ -6,12 +6,19 @@
       <h2>
         <a data-ng-href="#!/articles/{{article._id}}">{{article.title}}</a>
         <span data-ng-if="hasAuthorization(article)">
+          <a class="btn" data-ng-click="up(article)" title="喜欢">
+              <i class="glyphicon glyphicon-heart">({{article.up}})</i>
+          </a>
+            <a class="btn" data-ng-click="down(article)" title="讨厌">
+                <i class="glyphicon glyphicon-thumbs-down">({{article.down}})</i>
+            </a>
           <a class="btn" href="/#!/articles/{{article._id}}/edit">
             <i class="glyphicon glyphicon-edit"></i>
           </a>
-          <a class="btn" data-ng-click="remove(article);">
+          <!--<a class="btn" data-ng-click="remove(article);">
             <i class="glyphicon glyphicon-trash"></i>
           </a>
+          -->
         </span>
       </h2>
       <div>{{article.content}}</div>

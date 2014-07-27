@@ -20,11 +20,19 @@ var ArticleSchema = new Schema({
     required: true,
     trim: true
   },
-  content: {
+  up:{
+      type: Number,
+      default:0
+  },
+  down:{
+      type: Number,
+      default:0
+  },
+  /*content: {
     type: String,
     required: true,
     trim: true
-  },
+  },*/
   user: {
     type: Schema.ObjectId,
     ref: 'User'
@@ -37,11 +45,11 @@ var ArticleSchema = new Schema({
 ArticleSchema.path('title').validate(function(title) {
   return !!title;
 }, 'Title cannot be blank');
-
+/*
 ArticleSchema.path('content').validate(function(content) {
   return !!content;
 }, 'Content cannot be blank');
-
+*/
 /**
  * Statics
  */

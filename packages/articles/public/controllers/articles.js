@@ -58,6 +58,23 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
       }
     };
 
+      $scope.up = function(article) {
+          if (article) {
+              article.up = article.up+1;
+              //article.$remove();
+
+              /*for (var i in $scope.articles) {
+                  if ($scope.articles[i] === article) {
+                      $scope.articles.splice(i, 1);
+                  }
+              }*/
+          } else {
+              $scope.article.$remove(function(response) {
+                  $location.path('articles');
+              });
+          }
+      };
+
     $scope.find = function() {
       Articles.query(function(articles) {
         $scope.articles = articles;

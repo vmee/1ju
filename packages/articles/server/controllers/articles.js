@@ -58,6 +58,25 @@ exports.update = function(req, res) {
 };
 
 /**
+ * Update an article
+ */
+exports.up = function(req, res) {
+    var article = req.article;
+
+    article = _.extend(article, req.body);
+
+    article.save(function(err) {
+        if (err) {
+            return res.json(500, {
+                error: 'Cannot update the article'
+            });
+        }
+        res.json(article);
+
+    });
+};
+
+/**
  * Delete an article
  */
 exports.destroy = function(req, res) {
@@ -94,4 +113,19 @@ exports.all = function(req, res) {
     res.json(articles);
 
   });
+};
+
+/**
+ * Hot of Articles
+ */
+exports.hot = function(req, res) {
+    Article.find().sort('-up').populate('user', 'name username').exec(function(err, articles) {
+        if (err) {
+            return res.json(500, {
+                error: 'Cannot list the articles'
+            });
+        }
+        res.json(articles);
+
+    });
 };
