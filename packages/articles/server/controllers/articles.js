@@ -63,15 +63,34 @@ exports.update = function(req, res) {
 exports.up = function(req, res) {
     var article = req.article;
 
-    article = _.extend(article, req.body);
+    //article = _.extend(article, req.body);
 
-    article.save(function(err) {
+    article.update({$inc:{up:1}},function(err, num) {
         if (err) {
             return res.json(500, {
                 error: 'Cannot update the article'
             });
         }
-        res.json(article);
+        res.json(num);
+
+    });
+};
+
+/**
+ * Update an article
+ */
+exports.down = function(req, res) {
+    var article = req.article;
+
+    //article = _.extend(article, req.body);
+
+    article.update({$inc:{down:1}},function(err, num) {
+        if (err) {
+            return res.json(500, {
+                error: 'Cannot update the article'
+            });
+        }
+        res.json(num);
 
     });
 };

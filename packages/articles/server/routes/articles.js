@@ -23,7 +23,7 @@ module.exports = function(Articles, app, auth) {
     .delete(auth.requiresLogin, hasAuthorization, articles.destroy);
   app.route('/articles/do/:articleId')
       .put(auth.requiresLogin, hasAuthorization, articles.up)
-      .delete(auth.requiresLogin, hasAuthorization, articles.up)
+      .delete(auth.requiresLogin, hasAuthorization, articles.down);
   // Finish with setting up the articleId param
   app.param('articleId', articles.article);
 };

@@ -1,10 +1,17 @@
-<section data-ng-controller="ArticlesController" data-ng-init="find()">
+<section data-ng-controller="ArticlesController" data-ng-init="hot()">
   <ul class="articles unstyled">
     <li data-ng-repeat="article in articles">
-      <span>{{article.created | date:'medium'}}</span> /
-      <span>{{article.user.name}}</span>
+
+        <!--<span>{{article.created | date:'medium'}}</span> /-->
+       <span>
+       <i class="glyphicon glyphicon-user"> {{article.user.name}}</i>
+       </span>
       <h2>
         <a data-ng-href="#!/articles/{{article._id}}">{{article.title}}</a>
+
+      </h2>
+
+
         <span data-ng-if="hasAuthorization(article)">
           <a class="btn" data-ng-click="up(article)" title="喜欢">
               <i class="glyphicon glyphicon-heart">({{article.up}})</i>
@@ -13,15 +20,17 @@
                 <i class="glyphicon glyphicon-thumbs-down">({{article.down}})</i>
             </a>
           <a class="btn" href="/#!/articles/{{article._id}}/edit">
-            <i class="glyphicon glyphicon-edit"></i>
+              <i class="glyphicon glyphicon-edit"></i>
           </a>
-          <!--<a class="btn" data-ng-click="remove(article);">
-            <i class="glyphicon glyphicon-trash"></i>
+
+          <a class="btn" data-ng-click="remove(article);">
+              <i class="glyphicon glyphicon-trash"></i>
           </a>
-          -->
+
         </span>
-      </h2>
-      <div>{{article.content}}</div>
+
+
+      <!--<div>{{article.content}}</div>-->
     </li>
   </ul>
   <h1 data-ng-hide="!articles || articles.length">No articles yet. <br> Why don't you <a href="/#!/articles/create">Create One</a>?</h1>

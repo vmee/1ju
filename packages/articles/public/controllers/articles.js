@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Global', 'Articles',
-  function($scope, $stateParams, $location, Global, Articles) {
+angular.module('mean.articles').controller('ArticlesController', ['$scope', '$http', '$stateParams', '$location', 'Global', 'Articles',
+  function($scope, $http, $stateParams, $location, Global, Articles) {
     $scope.global = Global;
 
     $scope.hasAuthorization = function(article) {
@@ -58,16 +58,29 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
       }
     };
 
-      $scope.up = function(article) {
+    $scope.up = function(article) {
           if (article) {
-              article.up = article.up+1;
-              //article.$remove();
 
-              /*for (var i in $scope.articles) {
-                  if ($scope.articles[i] === article) {
-                      $scope.articles.splice(i, 1);
-                  }
-              }*/
+
+              $http.put('/articles/do/'+ article._id).success(function(art) {
+                 article.up = article.up+1;
+              });
+
+          } else {
+              $scope.article.$remove(function(response) {
+                  $location.path('articles');
+              });
+          }
+      };
+
+      $scope.down = function(article) {
+          if (article) {
+
+
+              $http.delete('/articles/do/'+ article._id).success(function(art) {
+                  article.down = article.down+1;
+              });
+
           } else {
               $scope.article.$remove(function(response) {
                   $location.path('articles');
@@ -80,6 +93,14 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
         $scope.articles = articles;
       });
     };
+
+      $scope.hot = function() {
+
+          $http.get('/articles/hot').success(function(articles) {
+              $scope.articles = articles;
+          });
+
+      };
 
     $scope.findOne = function() {
       Articles.get({
